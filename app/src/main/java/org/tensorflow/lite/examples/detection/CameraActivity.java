@@ -119,6 +119,12 @@ public abstract class CameraActivity extends AppCompatActivity
 
   private String items = "empty";
 
+  private Intent gestureServiceIntent;
+
+  private Handler autoSpeakinghandler = null;
+  private Runnable autoSpeaking;
+  private boolean autoSpeakRunning = false;
+
   @Override
   protected void onCreate(final Bundle savedInstanceState) {
     LOGGER.d("onCreate " + this);
@@ -155,18 +161,7 @@ public abstract class CameraActivity extends AppCompatActivity
       }
     });
 
-    Handler handler = new Handler();
-    int delay = 10000; //milliseconds
 
-    handler.postDelayed(new Runnable(){
-      public void run(){
-        if(items.length() == 0) speakText("nothing is in front of you");
-        else{
-          speakText("be careful of" + items);
-        }
-        handler.postDelayed(this, delay);
-      }
-    }, delay);
 
     layout.setOnLongClickListener(new View.OnLongClickListener() {
       @Override
@@ -248,16 +243,41 @@ public abstract class CameraActivity extends AppCompatActivity
         }
       }
     });
+    autoSpeakinghandler = new Handler();
+    autoSpeaking = new Runnable(){
+      public void run(){
+        if(items.length() == 0) speakText("nothing is in front of you");
+        else{
+          speakText("be careful of" + items);
+        }
+        autoSpeakinghandler.postDelayed(this, 10000);
+      }
+    };
 
     broadcastReceiver = new BroadcastReceiver() {
       @Override
       public void onReceive(Context context, Intent intent) {
         String msg = intent.getStringExtra("items");
-        items = msg;
+        String gesture = intent.getStringExtra("gesture");
+        if(msg != null) items = msg;
+        if(gesture != null && gesture.equals("shake")){
+          if(autoSpeakRunning){
+            autoSpeakinghandler.removeCallbacks(autoSpeaking);
+            autoSpeakRunning = false;
+            speakText("auto mode is turned off");
+          }else{
+            autoSpeakinghandler.postDelayed(autoSpeaking, 10000);
+            autoSpeakRunning = true;
+            speakText("auto mode is turned on");
+          }
+        }
       }
     };
     registerReceiver(broadcastReceiver, new IntentFilter(
             DetectorActivity.BROADCAST_ACTION));
+
+    gestureServiceIntent = new Intent(CameraActivity.this, GestureService.class);
+    startService(gestureServiceIntent);
   }
 
   protected int[] getRgbBytes() {
