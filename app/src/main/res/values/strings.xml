@@ -3,4 +3,6 @@
     <string name="description_info">Info</string>
     <string name="request_permission">This sample needs camera permission.</string>
     <string name="camera_error">This device doesn\'t support Camera2 API.</string>
+    <string name="weather_api">https://api.openweathermap.org/data/2.5/weather?lat=%1$s&amp;lon=%2$s&amp;appid="</string>
+    <string name="weather_api_key">bed14f6a8ba4dee61a3cbf811fe3e12c</string>
 </resources>

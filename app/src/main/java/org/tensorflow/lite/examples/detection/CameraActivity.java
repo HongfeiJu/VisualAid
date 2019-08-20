@@ -171,7 +171,6 @@ public abstract class CameraActivity extends AppCompatActivity
     layout.setOnLongClickListener(new View.OnLongClickListener() {
       @Override
       public boolean onLongClick(View v) {
-        Log.i("Hongfei", "Long click");
         if(items.length() == 0) speakText("nothing is in front of you");
         else{
           speakText("be careful of" + items);
@@ -633,17 +632,16 @@ public abstract class CameraActivity extends AppCompatActivity
 
                   try {
                     addresses = geocoder.getFromLocation(latitude, longitude, 1);
+                    String address = addresses.get(0).getAddressLine(0);
+                    String street = address.substring(0, address.indexOf(','));
+                    speakText("you are at "+street);
                   } catch (IOException e) {
                     e.printStackTrace();
                   }
 
-                  String address = addresses.get(0).getAddressLine(0);
-                  String street = address.substring(0, address.indexOf(','));
-                  Log.i("Hongfei_lw", street);
-                  speakText("you are at "+street);
 
                   try {
-                    String weather = (String) new WeatherTask(latitude, longitude).execute().get();
+                    String weather = (String) new WeatherTask(latitude, longitude, getApplicationContext()).execute().get();
                     Log.i("Hongfei_lw", weather);
                     speakText("the weather is "+weather);
                   } catch (ExecutionException e) {
