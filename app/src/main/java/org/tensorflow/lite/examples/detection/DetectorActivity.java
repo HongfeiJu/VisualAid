@@ -85,7 +85,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
   private MultiBoxTracker tracker;
 
   private BorderedText borderedText;
-  public static final String BROADCAST_ACTION = "send items";
+  public static final String BROADCAST_ACTION = "visual aid";
   Intent intent = new Intent(BROADCAST_ACTION);;
 
   @Override
