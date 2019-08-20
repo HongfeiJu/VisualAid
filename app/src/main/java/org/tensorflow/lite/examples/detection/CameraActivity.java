@@ -238,6 +238,7 @@ public abstract class CameraActivity extends AppCompatActivity
 
     fusedLocationClient = LocationServices.getFusedLocationProviderClient(CameraActivity.this);
 
+
     textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
       @Override
       public void onInit(int status) {
@@ -253,7 +254,6 @@ public abstract class CameraActivity extends AppCompatActivity
       @Override
       public void onReceive(Context context, Intent intent) {
         String msg = intent.getStringExtra("items");
-        Log.i("Hongfei_rec", "receive: " + msg);
         items = msg;
       }
     };
