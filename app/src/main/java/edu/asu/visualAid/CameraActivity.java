@@ -129,9 +129,6 @@ public abstract class CameraActivity extends AppCompatActivity
     getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
     setContentView(R.layout.activity_camera);
-    Toolbar toolbar = findViewById(R.id.toolbar);
-    setSupportActionBar(toolbar);
-    getSupportActionBar().setDisplayShowTitleEnabled(false);
 
     if (hasPermission()) {
       setFragment();
@@ -278,6 +275,8 @@ public abstract class CameraActivity extends AppCompatActivity
     falshSupportServiceIntent = new Intent(CameraActivity.this, FlashSupportService.class);
     startService(gestureServiceIntent);
     //startService(falshSupportServiceIntent);
+
+    speakText("Welcome to visual aid");
   }
 
   protected int[] getRgbBytes() {
