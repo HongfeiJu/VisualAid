@@ -2,14 +2,22 @@ apply plugin: 'com.android.application'
 apply plugin: 'de.undercouch.download'
 
 android {
-    compileSdkVersion 28
+    signingConfigs {
+        debug {
+            storeFile file('D:\\Codes\\AndroidApks\\VisualAid.jks')
+            storePassword 'jhf13245768'
+            keyAlias = 'visual aid key'
+            keyPassword 'jhf13245768'
+        }
+    }
+    compileSdkVersion 29
     buildToolsVersion '28.0.3'
     defaultConfig {
-        applicationId "org.tensorflow.lite.examples.detection"
+        applicationId "edu.asu.visualAid"
         minSdkVersion 21
-        targetSdkVersion 21
-        versionCode 1
-        versionName "1.0"
+        targetSdkVersion 29
+        versionCode 4
+        versionName "0.1"
     }
     buildTypes {
         release {

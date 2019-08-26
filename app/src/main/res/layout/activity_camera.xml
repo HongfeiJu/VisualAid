@@ -34,17 +34,11 @@
             android:layout_height="match_parent"
             tools:context="org.tensorflow.demo.CameraActivity" />
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:layout_alignParentTop="true"
-            android:background="@color/semi_transparent"/>
-
         <TextView
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#813F51B5"
             android:gravity="center"
             android:text="Visual Aid"
             android:textColor="#FFEB3B"
@@ -54,5 +48,6 @@
 
     <include
         android:id="@+id/bottom_sheet_layout"
-        layout="@layout/layout_bottom_sheet" />
+        layout="@layout/layout_bottom_sheet"
+        android:visibility="visible" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
